@@ -11,7 +11,9 @@ public class Fit {
      * @return идеальный вес.
      */
     public double manWeight(double height) {
-        return (height - 100) * 1.15;
+        final int growthMan = 100;
+        final double multiplier = 1.15;
+        return (height - growthMan) * multiplier;
     }
 
     /**
@@ -20,6 +22,8 @@ public class Fit {
      * @return идеальный вес.
      */
     public double womanWeight(double height) {
-        return (height - 110) * 1.15;
+        final int growthWoman = 110;
+        final double multiplier = 1.15;
+        return (height - growthWoman) * multiplier;
     }
 }
