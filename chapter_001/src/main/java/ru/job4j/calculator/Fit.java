@@ -10,10 +10,13 @@ public class Fit {
      * @param height Рост.
      * @return идеальный вес.
      */
+
+    private static final int GROWTHMAN = 100;
+    private static final int GROWTHWOMAN = 110;
+    private static final double MULTIPLIER = 1.15;
+
     public double manWeight(double height) {
-        final int growthMan = 100;
-        final double multiplier = 1.15;
-        return (height - growthMan) * multiplier;
+        return (height - GROWTHMAN) * MULTIPLIER;
     }
 
     /**
@@ -22,8 +25,6 @@ public class Fit {
      * @return идеальный вес.
      */
     public double womanWeight(double height) {
-        final int growthWoman = 110;
-        final double multiplier = 1.15;
-        return (height - growthWoman) * multiplier;
+        return (height - GROWTHWOMAN) * MULTIPLIER;
     }
 }
