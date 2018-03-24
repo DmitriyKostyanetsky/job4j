@@ -10,9 +10,10 @@ public class Converter {
      * @param value рубли.
      * @return Евро.
      */
+    private static final int EURO = 70;
+    private static final int DOLLAR = 60;
     public int rubleToEuro(int value) {
-        final int Euro = 70;
-       return value / Euro;
+       return value / EURO;
     }
 
     /**
@@ -21,7 +22,6 @@ public class Converter {
      * @return Доллоры.
      */
     public int rubleToDollar(int value) {
-        final int Dollar = 60;
-        return value / Dollar;
+        return value / DOLLAR;
     }
 }
