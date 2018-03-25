@@ -5,6 +5,7 @@ package ru.job4j.loop;
  *@version 1
  *@since 26.03.18
  */
+
 public class Factorial {
 
     /**

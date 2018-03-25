@@ -13,7 +13,6 @@ public class FactorialTest {
         int expected = 120;
         assertThat(result, is(expected));
     }
-
     @Test
     public void whenCalculateFactorialForZeroThenOne() {
         Factorial fact = new Factorial();
