@@ -4,15 +4,24 @@ public class Item {
     private String id;
     String name;
     String desc;
-    String[] comments;
+    String comments;
     long created;
 
-    public Item(String name, String desc, String[] comments) {
+    public Item(String name, String desc, String comments) {
         this.name = name;
         this.desc = desc;
         this.comments = comments;
+    }
+
+    public Item(String name, String desc) {
+        this.name = name;
+        this.desc = desc;
+    }
+
+    public Item() {
 
     }
+
     public void setId(String identification) {
         id = identification;
     }
@@ -27,5 +36,13 @@ public class Item {
 
     public String getName() {
         return name;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 }
