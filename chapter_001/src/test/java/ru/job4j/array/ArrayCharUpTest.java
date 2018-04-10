@@ -19,4 +19,11 @@ public class ArrayCharUpTest {
         boolean result = word.contains("Unstoppable", "opa");
         assertThat(result, is(false));
     }
+
+    @Test
+    public void whenStartWithPrefixInCenterOfWordThenTrue12() {
+        ArrayCharUp word = new ArrayCharUp();
+        boolean result = word.contains("12", "1");
+        assertThat(result, is(true));
+    }
 }
