@@ -68,20 +68,24 @@ public class StartUI {
         System.out.println("-------Показать все заявки-------");
         int number = 0;
         for (Item item : this.tracker.getAll()) {
-            number++;
-            System.out.println(number + ". имя : " + item.getName() + " id : " + item.getId() + " описание : " + item.getDesc());
+            if (item != null) {
+                number++;
+                System.out.println(number + ". имя : " + item.getName() + " id : " + item.getId() + " описание : " + item.getDesc());
+            }
         }
         System.out.println("---------------------------------");
     }
 
     public void editItem() {
         System.out.println("-------Редактировать заявку-------");
-        String idOld = this.input.ask("Введите id новой заявки : ");
-        String idNew = this.input.ask("Введите id старой заявки : ");
+        String id = this.input.ask("Введите id редактируемой заявки : ");
+        String name = this.input.ask("Введите новое имя заявки : ");
+        String desc = this.input.ask("Введите новое описание заявки : ");
         for (Item item : this.tracker.getAll()) {
-            if (item.getId().equals(idOld)) {
-                this.tracker.delete(idOld);
-                this.tracker.replace(idNew, item);
+            if (item.getId().equals(id)) {
+                item.setName(name);
+                item.setDesc(desc);
+                this.tracker.replace(id, item);
             }
         }
         System.out.println("-------Заявка отредактирована-------");
