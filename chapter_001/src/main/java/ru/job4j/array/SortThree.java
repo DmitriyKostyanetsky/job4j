@@ -4,28 +4,10 @@ import java.util.Arrays;
 
 /**
  * @author Dmitriy Kostyanetsky (onlywarinfarfuture@gmail.com)
- * @version 1
- * @since 02.04.18
+ * @version 2
+ * @since 11.04.18
  */
 public class SortThree {
-
-    /**
-     * Сортировка пузырьком.
-     * @param inputArray входящий массив.
-     * @return отсортированный массив.
-     */
-    public int[] sortArray(int[] inputArray) {
-        for (int i = 1; i < inputArray.length; i++) {
-            for (int j = i; j >= 1; j--) {
-                int swap = inputArray[j];
-                if (swap < inputArray[j - 1]) {
-                    inputArray[j] = inputArray[j - 1];
-                    inputArray[j - 1] = swap;
-                }
-            }
-        }
-        return inputArray;
-    }
 
     /**
      * Создание 3го массива, состоящего из 2ух других.
@@ -34,15 +16,28 @@ public class SortThree {
      * @return новый массив, состоящий из 2ух массивов.
      */
     public int[] newThirdArray(int[] one, int[] second) {
-        int k = 0;
+        int oneIndex = 0;
+        int secondIndex = 0;
         int[] thirdArray = new int[one.length + second.length];
-        for (int i = 0; i < one.length; i++) {
-                thirdArray[i] = one[i];
+        for (int i = 0; i < thirdArray.length; i++) {
+            while (oneIndex < one.length && secondIndex < second.length) {
+                if (one[oneIndex] < second[secondIndex]) {
+                    thirdArray[i] = one[oneIndex];
+                    oneIndex++;
+                    break;
+                } else {
+                    thirdArray[i] = second[secondIndex];
+                    secondIndex++;
+                    break;
+                }
+            }
         }
-        for (int num = one.length; num < thirdArray.length; num++) {
-            thirdArray[num] = second[k];
-            k++;
+        if (oneIndex < one.length) {
+            System.arraycopy(one, oneIndex, thirdArray, oneIndex + secondIndex, one.length - oneIndex);
+        } else {
+            System.arraycopy(second, secondIndex, thirdArray, oneIndex + secondIndex, second.length - secondIndex);
         }
-        return Arrays.copyOf(thirdArray, thirdArray.length);
+
+        return thirdArray;
     }
 }
