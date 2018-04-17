@@ -12,4 +12,10 @@ public class StubInput implements Input {
     public String ask(String question) {
         return this.value[this.position++];
     }
+
+    @Override
+    public int ask(String question, int[] range) throws MenuOutException {
+        throw new MenuOutException("Unsupported operation");
+    }
+
 }

@@ -37,6 +37,14 @@ public class MenuTracker {
         }
     }
 
+    public int[] getActions() {
+        int[] key = new int[actions.length];
+        for (int i = 0; i < actions.length; i++) {
+            key[i] = actions[i].key();
+        }
+        return key;
+    }
+
     public class AddItem implements UserAction {
         public int key() {
             return 0;
@@ -171,7 +179,7 @@ public class MenuTracker {
         }
 
         public void execute(Input input, Tracker tracker) {
-
+            System.exit(6);
         }
 
         public String info() {

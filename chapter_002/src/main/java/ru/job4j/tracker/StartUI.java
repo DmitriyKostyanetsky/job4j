@@ -14,21 +14,18 @@ public class StartUI {
         this.tracker = tracker;
     }
 
-    public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+    public static void main(String[] args) throws MenuOutException {
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 
-    public void init() {
+    public void init() throws MenuOutException {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions();
+        int[] range = menu.getActions();
         boolean exit = false;
         do {
             menu.show();
-            int key = Integer.valueOf(input.ask("Выбор: "));
-            if (key == 6){
-                break;
-            }
-            menu.select(key);
+            menu.select(input.ask("Введите команду: ", range));
         } while (exit != true);
     }
 }
