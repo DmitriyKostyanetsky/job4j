@@ -15,10 +15,10 @@ public class StartUI {
     }
 
     public static void main(String[] args) throws MenuOutException {
-        new StartUI(new ValidateInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();
     }
 
-    public void init() throws MenuOutException {
+    public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions();
         int[] range = menu.getActions();
@@ -26,6 +26,11 @@ public class StartUI {
         do {
             menu.show();
             menu.select(input.ask("Введите команду: ", range));
-        } while (exit != true);
+            for (int i : range) {
+                if (i == 6) {
+                    exit = true;
+                }
+            }
+        } while (exit);
     }
 }

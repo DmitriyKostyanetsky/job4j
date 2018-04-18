@@ -25,7 +25,7 @@ public class ValidateInputTest {
     }
 
     @Test
-    public void whenInvalidInput() throws MenuOutException {
+    public void whenInvalidInput() {
         ValidateInput input = new ValidateInput(
                 new StubInput(new String[] {"invalid", "1"})
         );
@@ -33,7 +33,7 @@ public class ValidateInputTest {
         assertThat(
                 this.mem.toString(),
                 is(
-                        String.format("Please enter validate data again.%n")
+                        String.format("Введите коректное значение: %n")
                 )
         );
     }

@@ -14,23 +14,31 @@ public class StartUITest {
         this.item = tracker.add(new Item("test1", "desc1"));
     }
 
+
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
-        Input input = new StubInput(new String[]{"1", "test name", "desc", "7"});
+        Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.getAll()[1].getName(), is("test name"));
     }
 
     @Test
+    public void whenUserChoseShowAllItemsThenTrackerGetAll() {
+        Input input = new StubInput(new String[]{"1", "6"});
+        new StartUI(input, tracker).init();
+        assertThat(tracker.getAll()[0], is(this.item));
+    }
+
+    @Test
     public void whenUpdateThenTrackerHasUpdateValue() {
-        Input input = new StubInput(new String[]{"3", this.item.getId(), "test name", "desc", "7"});
+        Input input = new StubInput(new String[]{"2", this.item.getId(), "test name", "desc", "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findById(this.item.getId()).getName(), is("test name"));
     }
 
     @Test
     public void whenDeleteItemThenTrackerHasDeleteItem() {
-        Input input = new StubInput(new String[]{"4", this.item.getId(), "7"});
+        Input input = new StubInput(new String[]{"3", this.item.getId(), "6"});
         new StartUI(input, tracker).init();
         Item result = null;
         assertThat(tracker.findById(this.item.getId()), is(result));
@@ -38,22 +46,15 @@ public class StartUITest {
 
     @Test
     public void whenUserFindByIdThenTrackerHasShowIdItem() {
-        Input input = new StubInput(new String[]{"5", this.item.getId(), "7"});
+        Input input = new StubInput(new String[]{"5", this.item.getId(), "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.getAll()[0].getId(), is(this.item.getId()));
     }
 
     @Test
     public void whenUserFindByNameThenTrackerHasShowNameItems() {
-        Input input = new StubInput(new String[]{"6", "test1", "7"});
+        Input input = new StubInput(new String[]{"4", "test1", "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.getAll()[0].getName(), is(this.item.getName()));
-    }
-
-    @Test
-    public void whenUserChoseShowAllItemsThenTrackerGetAll() {
-        Input input = new StubInput(new String[]{"2", "7"});
-        new StartUI(input, tracker).init();
-        assertThat(tracker.getAll()[0], is(this.item));
     }
 }

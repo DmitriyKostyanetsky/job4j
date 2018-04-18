@@ -56,7 +56,7 @@ public class MenuTracker {
             String desc = input.ask("Введите описание заявки : ");
             Item item = new Item(name, desc);
             tracker.add(item);
-            System.out.println("-------Новая заявка с Id : " + item.getId() + "-------");
+            System.out.println("Новая заявка с Id : " + item.getId() + " Имя: " + item.getName() + " Описание: " + item.getDesc());
         }
 
         public String info() {
@@ -179,7 +179,7 @@ public class MenuTracker {
         }
 
         public void execute(Input input, Tracker tracker) {
-            System.exit(6);
+
         }
 
         public String info() {

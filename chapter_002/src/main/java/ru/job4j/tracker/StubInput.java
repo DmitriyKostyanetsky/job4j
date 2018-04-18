@@ -14,8 +14,7 @@ public class StubInput implements Input {
     }
 
     @Override
-    public int ask(String question, int[] range) throws MenuOutException {
-        throw new MenuOutException("Unsupported operation");
+    public int ask(String question, int[] range) {
+        return Integer.valueOf(this.ask(question));
     }
-
 }
