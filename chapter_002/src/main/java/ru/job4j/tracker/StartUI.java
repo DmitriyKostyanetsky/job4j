@@ -26,11 +26,7 @@ public class StartUI {
         do {
             menu.show();
             menu.select(input.ask("Введите команду: ", range));
-            for (int i : range) {
-                if (i == 6) {
-                    exit = true;
-                }
-            }
-        } while (exit);
+
+        } while (!exit);
     }
 }
