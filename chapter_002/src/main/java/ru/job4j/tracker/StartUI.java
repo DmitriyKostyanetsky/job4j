@@ -22,7 +22,7 @@ public class StartUI {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions();
         int[] range = menu.getActions();
-        boolean exit = false;
+        boolean exit = true;
         do {
             menu.show();
             menu.select(input.ask("Введите команду: ", range));
