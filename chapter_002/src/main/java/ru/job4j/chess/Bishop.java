@@ -1,29 +1,32 @@
 package ru.job4j.chess;
 
 public class Bishop extends Figure {
+    private final Cell position;
 
-    /**
-     * Конструктор фигуры Слон
-     * @param x
-     * @param y
-     */
-    public Bishop(int x, int y) {
-        super(x, y);
+    public Bishop(final Cell position) {
+        this.position = position;
+    }
+
+    @Override
+    public Cell position() {
+        return this.position;
     }
 
     @Override
     public Figure copy(Cell dest) {
-        return new Bishop(dest.getX(), dest.getY());
+        return new Bishop(dest);
     }
 
 
     @Override
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
-        int numberX = Math.abs(dest.getX() - source.getX()); //length X
-        int numberY = Math.abs(dest.getY() - source.getY()); //length Y
-        if (numberX != numberY) {
+        Cell[] steps;
+        if (Math.abs(source.getX() - dest.getX()) == Math.abs(source.getY() - dest.getY())) {
+            steps = new Cell[] { dest };
+        }
+        else {
             throw new ImpossibleMoveException("Impossible move!");
         }
-        return new Cell [numberX];
+        return steps;
     }
 }

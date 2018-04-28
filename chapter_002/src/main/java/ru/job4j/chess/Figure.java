@@ -4,18 +4,7 @@ package ru.job4j.chess;
  * Класс описывает абстрактное поведение шахматной доски
  */
 public abstract class Figure {
-    private int x, y;
-    final Cell position = new Cell(x , y);
-
-    /**
-     * Конструктор для фигуры
-     * @param x
-     * @param y
-     */
-    public Figure(int x, int y) {
-        this.y = y;
-        this.x = x;
-    }
+    public abstract Cell position();
 
     /**
      * Метод задает ячейку куда нужно пойти

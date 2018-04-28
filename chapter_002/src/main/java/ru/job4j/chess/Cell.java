@@ -6,6 +6,7 @@ package ru.job4j.chess;
 public class Cell {
     private int x;
     private int y;
+    private Figure figure;
 
     /**
      * Конструктор для установления позиции
@@ -13,7 +14,8 @@ public class Cell {
      * @param y ячейка y
      */
     public Cell(int x, int y) {
-        setPosition(x, y);
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -40,5 +42,13 @@ public class Cell {
      */
     public int getY() {
         return this.y;
+    }
+
+    public Figure getFigure() {
+        return figure;
+    }
+
+    public void setFigure(Figure setFigure) {
+        this.figure = setFigure;
     }
 }
