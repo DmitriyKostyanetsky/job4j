@@ -1,6 +1,9 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -9,9 +12,11 @@ public class TrackerTest {
     @Test
     public void whenAddNewItemThenTrackerHasSameItem() {
         Tracker tracker = new Tracker();
+        ArrayList<Item> items = new ArrayList<>();
         Item item = new Item("test1", "testDescription", "1243L");
+        items.add(item);
         tracker.add(item);
-        assertThat(tracker.getAll()[0], is(item));
+        assertThat(tracker.getAll().get(0), is(items.get(0)));
     }
 
     @Test
@@ -34,9 +39,9 @@ public class TrackerTest {
         tracker.add(item1);
         tracker.add(item2);
         String key = "test2";
-        Item[] result = tracker.findByName(key);
-        assertThat(result[0].getName(), is(item1.getName()));
-        assertThat(result[1].getName(), is(item2.getName()));
+        ArrayList<Item> result = tracker.findByName(key);
+        assertThat(result.get(0).getName(), is(item1.getName()));
+        assertThat(result.get(1).getName(), is(item2.getName()));
     }
 
     @Test

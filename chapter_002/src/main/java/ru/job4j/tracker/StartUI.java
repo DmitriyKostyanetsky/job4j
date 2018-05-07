@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+
 /**
  * @author Dmitriy Kostyanetsky (onlywarinfarfuture@gmail.com)
  * @version 1
@@ -21,7 +23,7 @@ public class StartUI {
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions();
-        int[] range = menu.getActions();
+        ArrayList<Integer> range = menu.getActionsKey();
         boolean exit = true;
         do {
             menu.show();

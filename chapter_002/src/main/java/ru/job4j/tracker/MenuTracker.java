@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+
 /**
  * @author Dmitriy Kostyanetsky (onlywarinfarfuture@gmail.com)
  * @version 1
@@ -8,8 +10,7 @@ package ru.job4j.tracker;
 public class MenuTracker {
     private Input input;
     private Tracker tracker;
-    private UserAction[] actions = new UserAction[7];
-    private int position = 0;
+    private ArrayList<UserAction> actions = new ArrayList<>();
 
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
@@ -17,17 +18,17 @@ public class MenuTracker {
     }
 
     public void fillActions() {
-        this.actions[position++] = this.new AddItem(0, "Добавить заявку");
-        this.actions[position++] = this.new ShowAllItems(1, "Показать все заявки");
-        this.actions[position++] = this.new EditItem(2, "Редактировать заявку");
-        this.actions[position++] = this.new DeleteItem(3, "Удалить заявку");
-        this.actions[position++] = this.new FindByName(4, "Найти заявку по имени");
-        this.actions[position++] = this.new FindById(5, "Найти заявку по id");
-        this.actions[position++] = this.new ExitMenu(6, "Выйти из меню");
+        this.actions.add(new AddItem(0, "Добавить заявку"));
+        this.actions.add(new ShowAllItems(1, "Показать все заявки"));
+        this.actions.add(new EditItem(2, "Редактировать заявку"));
+        this.actions.add(new DeleteItem(3, "Удалить заявку"));
+        this.actions.add(new FindByName(4, "Найти заявку по имени"));
+        this.actions.add(new FindById(5, "Найти заявку по id"));
+        this.actions.add(new ExitMenu(6, "Выйти из меню"));
     }
 
     public void select(int key) {
-        this.actions[key].execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker);
     }
 
     public void show() {
@@ -38,12 +39,14 @@ public class MenuTracker {
         }
     }
 
-    public int[] getActions() {
-        int[] key = new int[actions.length];
-        for (int i = 0; i < actions.length; i++) {
-            key[i] = actions[i].key();
+    public ArrayList<Integer> getActionsKey() {
+        ArrayList<Integer> keyList = new ArrayList<>();
+        int key;
+        for (int i = 0; i < actions.size(); i++) {
+            key = actions.get(i).key();
+            keyList.add(key);
         }
-        return key;
+        return keyList;
     }
 
     public class AddItem extends BaseAction {
@@ -129,7 +132,7 @@ public class MenuTracker {
             System.out.println("-------Найти заявку по имени-------");
             String name = input.ask("Введите имя : ");
             int number = 0;
-            Item[] result = tracker.findByName(name);
+            ArrayList<Item> result = tracker.findByName(name);
             for (Item item : result) {
                 if (item == null) {
                     continue;

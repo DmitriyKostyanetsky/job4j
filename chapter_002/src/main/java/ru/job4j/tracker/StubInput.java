@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+
 public class StubInput implements Input {
     private final String[] value;
     private int position;
@@ -14,7 +16,7 @@ public class StubInput implements Input {
     }
 
     @Override
-    public int ask(String question, int[] range) {
+    public int ask(String question, ArrayList<Integer> range) {
         return Integer.valueOf(this.ask(question));
     }
 }

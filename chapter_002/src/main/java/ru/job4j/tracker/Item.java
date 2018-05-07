@@ -5,7 +5,6 @@ public class Item {
     String name;
     String desc;
     String comments;
-    long created;
 
     public Item(String name, String desc, String comments) {
         this.name = name;

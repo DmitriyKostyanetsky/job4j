@@ -19,14 +19,14 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.getAll()[1].getName(), is("test name"));
+        assertThat(tracker.getAll().get(1).getName(), is("test name"));
     }
 
     @Test
     public void whenUserChoseShowAllItemsThenTrackerGetAll() {
         Input input = new StubInput(new String[]{"1", "6"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.getAll()[0], is(this.item));
+        assertThat(tracker.getAll().get(0), is(this.item));
     }
 
     @Test
@@ -48,13 +48,13 @@ public class StartUITest {
     public void whenUserFindByIdThenTrackerHasShowIdItem() {
         Input input = new StubInput(new String[]{"5", this.item.getId(), "6"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.getAll()[0].getId(), is(this.item.getId()));
+        assertThat(tracker.getAll().get(0).getId(), is(this.item.getId()));
     }
 
     @Test
     public void whenUserFindByNameThenTrackerHasShowNameItems() {
         Input input = new StubInput(new String[]{"4", "test1", "6"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.getAll()[0].getName(), is(this.item.getName()));
+        assertThat(tracker.getAll().get(0).getName(), is(this.item.getName()));
     }
 }
