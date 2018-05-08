@@ -17,14 +17,13 @@ public class Bishop extends Figure {
         return new Bishop(dest);
     }
 
-
     @Override
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
-        Cell[] steps;
+        Cell[] steps = new Cell[0];
         if (Math.abs(source.getX() - dest.getX()) == Math.abs(source.getY() - dest.getY())) {
             steps = new Cell[] { dest };
         }
-        else {
+        if (Math.abs(source.getX() - dest.getX()) != Math.abs(source.getY() - dest.getY())) {
             throw new ImpossibleMoveException("Impossible move!");
         }
         return steps;
