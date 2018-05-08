@@ -14,32 +14,16 @@ public class ConvertList2Array {
      * @return возвращает двумерный массив
      */
     public int[][] toArray(List<Integer> list, int rows) {
-        ArrayList<Integer> arrayList = new ArrayList<>(list);
-        int remainder = rows - (list.size() % rows);
         int cells = (list.size() / rows) + 1;
-
-        if (remainder != 0) {
-            while (remainder != 0) {
-                arrayList.add(arrayList.size(), 0);
-                remainder--;
-            }
-        }
-
-        int[] result = new int[arrayList.size()];
-        Iterator<Integer> iterator = arrayList.iterator();
-        for (int i = 0; i < result.length; i++) {
-            result[i] = iterator.next().intValue();
-        }
-
-        int index = 0;
+        Iterator<Integer> iterator = list.iterator();
         int[][] array = new int[cells][rows];
         for (int i = 0; i < cells; i++) {
             for (int j = 0; j < rows; j++) {
-                array[i][j] = result[index];
-                index++;
+                if (iterator.hasNext()) {
+                    array[i][j] = iterator.next().intValue();
+                }
             }
         }
-
         return array;
     }
 
