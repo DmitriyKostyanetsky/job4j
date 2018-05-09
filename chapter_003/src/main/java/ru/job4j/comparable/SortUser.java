@@ -1,5 +1,6 @@
 package ru.job4j.comparable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -11,11 +12,22 @@ public class SortUser {
      * @return возвращает treeset пользователей по возрасту
      */
     public Set<User> sort(List<User> list) {
-        int index = 0;
-        TreeSet<User> result = new TreeSet<>(new User(list.get(index).getName(), list.get(index).getAge()));
-        for (User value : list) {
-            result.add(value);
-        }
+        TreeSet<User> result = new TreeSet<>(User.Comparators.AGE);
+        result.addAll(list);
+        return result;
+    }
+
+    public List<User> sortNameLength(List<User> list){
+        list.sort(User.Comparators.LENGTH);
+        ArrayList<User> result = new ArrayList<>();
+        result.addAll(list);
+        return result;
+    }
+
+    public List<User> sortByAllFields(List<User> list) {
+        list.sort(User.Comparators.NAMEAGE);
+        ArrayList<User> result = new ArrayList<>();
+        result.addAll(list);
         return result;
     }
 }
