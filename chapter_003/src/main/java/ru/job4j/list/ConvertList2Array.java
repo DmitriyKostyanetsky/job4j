@@ -37,8 +37,7 @@ public class ConvertList2Array {
         List<Integer> result = new ArrayList<>();
         for (int[] value : list){
             for (int val : value) {
-                Integer.valueOf(val);
-                result.addAll(Arrays.asList(val));
+                result.add(val);
             }
         }
         return result;
