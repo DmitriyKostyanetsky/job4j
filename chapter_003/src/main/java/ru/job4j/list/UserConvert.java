@@ -15,11 +15,8 @@ public class UserConvert {
      */
     public HashMap<Integer, User> process(List<User> list) {
         HashMap<Integer, User> result = new HashMap<>();
-        int index = 0;
         for (User value : list) {
-            result.put(value.getId(), list.get(index));
-            System.out.println(String.format("%s : %s", value.getId(), value.getName() + " " + value.getCity()));
-            index++;
+            result.put(value.getId(), value);
         }
         return  result;
     }
