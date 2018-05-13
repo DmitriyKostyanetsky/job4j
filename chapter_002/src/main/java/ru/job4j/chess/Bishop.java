@@ -21,7 +21,7 @@ public class Bishop extends Figure {
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         Cell[] steps = new Cell[0];
         if (Math.abs(source.getX() - dest.getX()) == Math.abs(source.getY() - dest.getY())) {
-            steps = new Cell[] { dest };
+            steps = new Cell[] {dest};
         }
         if (Math.abs(source.getX() - dest.getX()) != Math.abs(source.getY() - dest.getY())) {
             throw new ImpossibleMoveException("Impossible move!");

@@ -29,7 +29,7 @@ public class ListCompareTest {
     }
 
     @Test
-    public void whenLeftGreaterThanRightResultShouldBePositive () {
+    public void whenLeftGreaterThanRightResultShouldBePositive() {
         ListCompare listCompare = new ListCompare();
         int result = listCompare.compare(
                 "Petrov",

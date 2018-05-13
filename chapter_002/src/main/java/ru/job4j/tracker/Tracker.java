@@ -99,7 +99,7 @@ public class Tracker {
      */
     public ArrayList<Item> getAll() {
         ArrayList<Item> result = new ArrayList<>(position);
-        for (int i = 0; i != position ; i++) {
+        for (int i = 0; i != position; i++) {
             result.addAll(items);
         }
         return result;
