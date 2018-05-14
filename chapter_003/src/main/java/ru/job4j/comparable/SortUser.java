@@ -9,8 +9,7 @@ public class SortUser {
      * @return возвращает treeset пользователей по возрасту
      */
     public Set<User> sort(List<User> list) {
-        Set<User> result = new TreeSet<>(list);
-        return result;
+        return new TreeSet<>(list);
     }
 
     public List<User> sortNameLength(List<User> list) {
