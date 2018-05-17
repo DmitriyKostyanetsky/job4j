@@ -33,8 +33,10 @@ public class ConvertList2ArrayTest {
                 4
         );
         int[][] expect = {
-                {1, 2, 3, 4},
-                {5, 0, 0, 0}
+                {1, 2},
+                {3, 4},
+                {5, 0},
+                {0, 0}
         };
         assertThat(result, is(expect));
     }
@@ -47,7 +49,8 @@ public class ConvertList2ArrayTest {
                 2
         );
         int[][] expect = {
-                {1, 0}
+                {1},
+                {0}
         };
         assertThat(result, is(expect));
     }

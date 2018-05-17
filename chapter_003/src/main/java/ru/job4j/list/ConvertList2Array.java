@@ -1,8 +1,6 @@
 package ru.job4j.list;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class ConvertList2Array {
@@ -14,14 +12,15 @@ public class ConvertList2Array {
      * @return возвращает двумерный массив
      */
     public int[][] toArray(List<Integer> list, int rows) {
-        int cells = (list.size() / rows) + 1;
-        Iterator<Integer> iterator = list.iterator();
-        int[][] array = new int[cells][rows];
-        for (int i = 0; i < cells; i++) {
-            for (int j = 0; j < rows; j++) {
-                if (iterator.hasNext()) {
-                    array[i][j] = iterator.next().intValue();
-                }
+        int cells = (int) Math.ceil((double) list.size() / rows);
+        int[][] array = new int[rows][cells];
+        int row = 0;
+        int cell = 0;
+        for (Integer value : list) {
+            array[row][cell++] = value;
+            if (cell >= cells) {
+                row++;
+                cell = 0;
             }
         }
         return array;
