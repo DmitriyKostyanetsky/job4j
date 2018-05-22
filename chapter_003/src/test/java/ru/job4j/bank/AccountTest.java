@@ -85,6 +85,6 @@ public class AccountTest {
         account.addAccountToUser("52373363", new Account(2541, 3533));
         account.addAccountToUser("496738235", new Account(3999, 8932));
         account.getUserAccounts("52373363");
-        assertThat(account.transferMoney("496738235", "8932", "52373363", "0", 5000), is(false));
+        assertThat(account.transferMoney("", "8932", "52373363", "0", 5000), is(false));
     }
 }

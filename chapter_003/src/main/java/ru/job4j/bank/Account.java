@@ -87,7 +87,59 @@ public class Account {
     }
 
     /**
-     * Перечисления денег с одного счёта на другой счёт
+     * Метод поиска пользователя по паспорту
+     * @param passport данные паспорта
+     * @return возвращает пользователя
+     */
+    private User findUser(String passport) {
+        User user = new User();
+        for (Map.Entry<User, ArrayList<Account>> entry : list.entrySet()) {
+            User key = entry.getKey();
+            if (key.getPassport().equals(passport)) {
+                user = key;
+                break;
+            }
+        }
+        return user;
+    }
+
+    /**
+     * Метод поиска аккаунта по номеру реквизитов
+     * @param requisite реквизиты
+     * @return возвращает аккаунт
+     */
+    private Account findAccount(String requisite) {
+        Account account = new Account();
+        for (Map.Entry<User, ArrayList<Account>> entry : list.entrySet()) {
+            ArrayList<Account> value = entry.getValue();
+            for (Account acc : value) {
+                if (acc.getRequisites() == Integer.parseInt(requisite)) {
+                    account = acc;
+                    break;
+                }
+            }
+        }
+        return account;
+    }
+
+    /**
+     * Метод переводит деньги со счета одного пользователя на счет другого пользователя
+     * @param dest аккаунт получателя
+     * @param amount сумма перевода
+     * @return возвращает true если перевод удался, false если нет
+     */
+    private boolean transferTo(Account dest, double amount) {
+        boolean result = false;
+        if (amount > 0 && amount < this.value) {
+            this.value -= amount;
+            dest.value += amount;
+            result = true;
+        }
+        return result;
+    }
+
+    /**
+     * Перечисление денег с одного счёта на другой счёт
      * @param srcPassport паспорт отправителя
      * @param srcRequisite реквизиты отправителя
      * @param destPassport паспорт получателя
@@ -97,32 +149,13 @@ public class Account {
      */
     public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
         boolean result = false;
-        int changedValue = 0;
-        int exit = 0;
-        if (amount > 0 && Integer.parseInt(dstRequisite) != 0) {
-            while (exit == 0) {
-                for (Map.Entry<User, ArrayList<Account>> entry : list.entrySet()) {
-                    User key = entry.getKey();
-                    ArrayList<Account> value = entry.getValue();
-                    for (Account account : value) {
-                        if (key.getPassport().equals(srcPassport) && account.getRequisites() == Integer.parseInt(srcRequisite) && amount < account.getValue()) {
-                            value.set(value.indexOf(account), new Account(account.getValue() - amount, account.getRequisites()));
-                            list.put(key, value);
-                            changedValue++;
-                        }
-                        if (key.getPassport().equals(destPassport) && account.getRequisites() == Integer.parseInt(dstRequisite) && changedValue != 0) {
-                            value.set(value.indexOf(account), new Account(account.getValue() + amount, account.getRequisites()));
-                            list.put(key, value);
-                            result = true;
-                            exit++;
-                            break;
-                        }
-                        if (key.getPassport().equals(srcPassport) && account.getRequisites() == Integer.parseInt(srcRequisite) && amount > account.getValue()) {
-                            exit++;
-                            break;
-                        }
-                    }
-                }
+        User userSender = findUser(srcPassport);
+        User userDestination = findUser(destPassport);
+        Account accountSender = findAccount(srcRequisite);
+        Account accountDestination = findAccount(dstRequisite);
+        if (accountDestination.getRequisites() != 0 && accountSender.getRequisites() != 0 && userSender.getPassport() != null && userDestination.getPassport() != null) {
+            if (accountSender.transferTo(accountDestination, amount)) {
+                result = true;
             }
         }
         return result;
