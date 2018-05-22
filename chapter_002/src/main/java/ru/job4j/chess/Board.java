@@ -40,9 +40,9 @@ public class Board {
         if (source.getFigure() == null) {
             throw new FigureNotFoundException("Figure not found!");
         }
-        Figure moveFig = source.getFigure();
-        Cell[] arrWay = moveFig.way(source, dest);
-        for (Cell current : arrWay) {
+        Figure currentPosition = source.getFigure();
+        Cell[] nextPosition = currentPosition.way(source, dest);
+        for (Cell current : nextPosition) {
             if (current != source) {
                 if (current.getFigure() != null) {
                     throw new OccupiedWayException("Way is occupied!");
@@ -50,7 +50,7 @@ public class Board {
             }
         }
         source.setFigure(null);
-        dest.setFigure(moveFig);
+        dest.setFigure(currentPosition);
         return true;
     }
 

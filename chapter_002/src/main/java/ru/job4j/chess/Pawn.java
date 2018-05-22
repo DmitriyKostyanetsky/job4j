@@ -1,9 +1,9 @@
 package ru.job4j.chess;
 
-public class Bishop extends Figure {
+public class Pawn extends Figure{
     private final Cell position;
 
-    public Bishop(final Cell position) {
+    public Pawn(final Cell position) {
         this.position = position;
     }
 
@@ -14,16 +14,16 @@ public class Bishop extends Figure {
 
     @Override
     public Figure copy(Cell dest) {
-        return new Bishop(dest);
+        return new Pawn(dest);
     }
 
     @Override
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         Cell[] steps = new Cell[0];
-        if (Math.abs(source.getY() - dest.getY()) == Math.abs(source.getX() - dest.getX())) {
+        if (source.getY() + 1 == dest.getY() && source.getX() == dest.getX()) {
             steps = new Cell[] {dest};
         }
-        if (Math.abs(source.getY() - dest.getY()) != Math.abs(source.getX() - dest.getX())) {
+        if (source.getY() + 1 != dest.getY() && source.getX() != dest.getX()) {
             throw new ImpossibleMoveException("Impossible move!");
         }
         return steps;
