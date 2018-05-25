@@ -24,13 +24,11 @@ public class IteratorForArray<T> implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        if (hasNext()) {
-            result = values[i][j];
-            j++;
-            if (values[i].length == j) {
-                j = 0;
-                i++;
-            }
+        result = values[i][j];
+        j++;
+        if (values[i].length == j) {
+            j = 0;
+            i++;
         }
         return result;
     }
