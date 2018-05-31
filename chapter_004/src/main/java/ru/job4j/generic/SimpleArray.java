@@ -3,7 +3,7 @@ package ru.job4j.generic;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class SimpleArray<T> implements Iterable<T>{
+public class SimpleArray<T> implements Iterable<T> {
 
     private T[] array;
 
@@ -40,7 +40,7 @@ public class SimpleArray<T> implements Iterable<T>{
         return new SimpleArrayIterator(array);
     }
 
-    public class SimpleArrayIterator implements Iterator<T> {
+    private class SimpleArrayIterator implements Iterator<T> {
 
         private T[] values;
         private int index = 0;
