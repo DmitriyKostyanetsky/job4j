@@ -32,8 +32,11 @@ public class PrimeIterator implements Iterator<Integer> {
      * @return возвращает true если простые числа остались, false если нет
      */
     private boolean checkForSimplicity() {
-        for (int value : values) {
-            if (value % 2 != 0 || value == 2) {
+        if (index == - 1) {
+            index = 0;
+        }
+        for (int i = index; i + 1 < values.length; i++) {
+            if (values[index] % 2 != 0 || values[index] == 2) {
                 return true;
             }
         }
@@ -42,7 +45,7 @@ public class PrimeIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        return values.length > index + 1  && checkForSimplicity();
+        return checkForSimplicity();
     }
 
     @Override
