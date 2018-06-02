@@ -13,6 +13,9 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         testNextNumber();
     }
 
+    /**
+     * Метод проверяет, что следующее число четное
+     */
     private void testNextNumber() {
         index++;
         while (index < values.length && values[index] % 2 == 1) {
@@ -20,9 +23,25 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         }
     }
 
+    /**
+     * Метод проверяет, имеются ли в массиве четные числа
+     * @return возвращает true если четные числа остались, false если нет
+     */
+    private boolean checkForEven() {
+        if (index == - 1) {
+            index = 0;
+        }
+        for (int i = index; i < values.length; i++) {
+            if (values[index] % 2 == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public boolean hasNext() {
-        return values.length > index;
+        return checkForEven();
     }
 
     @Override
