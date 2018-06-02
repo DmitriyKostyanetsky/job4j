@@ -1,53 +1,59 @@
 package ru.job4j.chess;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class BishopMoveTest {
-    @Test
-    public void whenBishopMoveValidThenReturnTrue() {
-        Board board = new Board();
-        Figure bishop = new Bishop(new Cell(0, 0));
+    private Board board;
+    private Figure bishop;
+
+    @Before
+    public void setUp() {
+        board = new Board();
+        bishop = new Bishop(new Cell(4, 2));
         bishop.position().setFigure(bishop);
-        boolean result = board.move(bishop.position(), new Cell(7, 7));
-        assertThat(result, is(true));
     }
 
     @Test
     public void whenBishopMoveUpLeftValidThenReturnTrue() {
-        Board board = new Board();
-        Figure bishop = new Bishop(new Cell(4, 2));
-        bishop.position().setFigure(bishop);
-        boolean result = board.move(bishop.position(), new Cell(1, 5));
-        assertThat(result, is(true));
+        Cell newPosition = new Cell(1, 5);
+        Cell[] result = bishop.way(bishop.position(), newPosition);
+        Cell[] expect = new Cell[] {new Cell(3, 3), new Cell(2, 4), new Cell(1, 5)};
+        boolean checkMove = board.move(bishop.position(), newPosition);
+        assertThat(checkMove, is(true));
+        assertThat(result, is(expect));
     }
 
     @Test
     public void whenBishopMoveUpRightValidThenReturnTrue() {
-        Board board = new Board();
-        Figure bishop = new Bishop(new Cell(4, 2));
-        bishop.position().setFigure(bishop);
-        boolean result = board.move(bishop.position(), new Cell(7, 5));
-        assertThat(result, is(true));
+        Cell newPosition = new Cell(7, 5);
+        Cell[] result = bishop.way(bishop.position(), newPosition);
+        Cell[] expect = new Cell[] {new Cell(5, 3), new Cell(6, 4), new Cell(7, 5)};
+        boolean checkMove = board.move(bishop.position(), newPosition);
+        assertThat(checkMove, is(true));
+        assertThat(result, is(expect));
     }
 
     @Test
     public void whenBishopMoveDownRightValidThenReturnTrue() {
-        Board board = new Board();
-        Figure bishop = new Bishop(new Cell(4, 2));
-        bishop.position().setFigure(bishop);
-        boolean result = board.move(bishop.position(), new Cell(6, 0));
-        assertThat(result, is(true));
+        Cell newPosition = new Cell(6, 0);
+        Cell[] result = bishop.way(bishop.position(), newPosition);
+        Cell[] expect = new Cell[] {new Cell(5, 1), new Cell(6, 0)};
+        boolean checkMove = board.move(bishop.position(), newPosition);
+        assertThat(checkMove, is(true));
+        assertThat(result, is(expect));
     }
 
     @Test
     public void whenBishopMoveDownLeftValidThenReturnTrue() {
-        Board board = new Board();
-        Figure bishop = new Bishop(new Cell(4, 2));
-        bishop.position().setFigure(bishop);
-        boolean result = board.move(bishop.position(), new Cell(2, 0));
-        assertThat(result, is(true));
+        Cell newPosition = new Cell(2, 0);
+        Cell[] result = bishop.way(bishop.position(), newPosition);
+        Cell[] expect = new Cell[] {new Cell(3, 1), new Cell(2, 0)};
+        boolean checkMove = board.move(bishop.position(), newPosition);
+        assertThat(checkMove, is(true));
+        assertThat(result, is(expect));
     }
 }

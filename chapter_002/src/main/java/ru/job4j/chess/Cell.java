@@ -18,6 +18,11 @@ public class Cell {
         this.y = y;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Cell;
+    }
+
     /**
      * Сеттер для установления позиции
      * @param x координата х

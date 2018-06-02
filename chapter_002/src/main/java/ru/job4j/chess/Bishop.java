@@ -45,25 +45,26 @@ public class Bishop extends Figure {
     private Cell[] checkMoveOfFigure(Cell source, Cell dest) {
         Cell[] coordinates = new Cell[7];
         int numberOfCell = Math.abs(source.getY() - dest.getY());
-        int x = source.getX() - dest.getX();
-        int y = source.getY() - dest.getY();
         int currentGetX = source.getX();
         int currentGetY = source.getY();
+        int deltaXY = Integer.compare(source.getX() - dest.getX(), source.getY() - dest.getY());
+
         for (int i = 0; i != numberOfCell; i++) {
-            if (x > 0 && y < 0) {
-                coordinates[i] = new Cell(currentGetX-- - 1, currentGetY++ + 1);
+            if (deltaXY == 1) {
+                coordinates[i] = new Cell(--currentGetX, ++currentGetY);
                 continue;
             }
-            if (x < 0 && y < 0) {
-                coordinates[i] = new Cell(currentGetX++ + 1, currentGetY++ + 1);
+            if (deltaXY == -1) {
+                coordinates[i] = new Cell(++currentGetX, --currentGetY);
                 continue;
             }
-            if (x < 0 && y > 0) {
-                coordinates[i] = new Cell(currentGetX++ + 1, currentGetY-- - 1);
-                continue;
-            }
-            if (x > 0 && y > 0) {
-                coordinates[i] = new Cell(currentGetX-- - 1, currentGetY-- - 1);
+            if (deltaXY == 0) {
+                if (source.getX() < dest.getX()) {
+                    coordinates[i] = new Cell(++currentGetX, ++currentGetY);
+                }
+                if (source.getX() > dest.getX()) {
+                    coordinates[i] = new Cell(--currentGetX, --currentGetY);
+                }
             }
         }
         return arrayWithoutZeros(coordinates);
