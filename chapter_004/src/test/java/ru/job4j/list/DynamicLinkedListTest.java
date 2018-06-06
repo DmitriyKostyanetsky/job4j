@@ -16,13 +16,14 @@ public class DynamicLinkedListTest {
     public void setUp() {
         list = new DynamicLinkedList<>();
         list.add(1);
+        list.add(2);
+        list.add(3);
     }
 
     @Test
     public void whenAddElementThenConcurrentModificationException() {
-        list.add(2);
-        assertThat(list.get(0), is(2));
-        assertThat(list.get(1), is(1));
+        assertThat(list.get(0), is(3));
+        assertThat(list.get(1), is(2));
     }
 
     @Test(expected = ConcurrentModificationException.class)
@@ -30,5 +31,19 @@ public class DynamicLinkedListTest {
         list.add(2);
         assertThat(list.iterator().next(), is(2));
         assertThat(list.iterator().next(), is(1));
+    }
+
+    @Test
+    public void whenDeleteElementThenDeleteFirst() {
+        list.removeFirst();
+        assertThat(list.get(0), is(2));
+        assertThat(list.get(1), is(1));
+    }
+
+    @Test
+    public void whenDeleteElementThenDeleteLast() {
+        list.removeLast();
+        assertThat(list.get(0), is(3));
+        assertThat(list.get(1), is(2));
     }
 }

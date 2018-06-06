@@ -27,6 +27,34 @@ public class DynamicLinkedList<E> implements Iterable<E> {
         expectedModCount++;
     }
 
+    public E removeFirst() {
+        E result = first.date;
+        if (position == 1) {
+            first = null;
+            last = null;
+        }
+        if (position != 1) {
+            first = first.next;
+            first.previous = null;
+        }
+        position--;
+        return result;
+    }
+
+    public E removeLast() {
+        E result = last.date;
+        if (position == 1) {
+            first = null;
+            last = null;
+        }
+        if (position != 1) {
+            last.previous.next = null;
+            last = last.previous;
+        }
+        position--;
+        return result;
+    }
+
     public E get(int index) {
         Node<E> result = this.first;
         for (int i = 0; i < index; i++) {
