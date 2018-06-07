@@ -30,6 +30,7 @@ public class SimpleArrayListTest {
 
     @Test
     public void whenAddThreeElementsThenUseDeleteResultThree() {
-        assertThat(list.delete(3), is(2));
+        assertThat(list.delete(), is(4));
+        assertThat(list.delete(), is(3));
     }
 }

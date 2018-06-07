@@ -12,25 +12,11 @@ public class SimpleArrayList<E> {
         this.size++;
     }
 
-    public E delete(int index) {
-        Node<E> result;
-        if (index >= size || index < 0) {
-            return null;
-        }
-        if (index == 0) {
-            this.first = this.first.next;
-            result = this.first;
-            size--;
-            return result.date;
-        }
-        Node<E> current = this.first;
-        for (int i = 1; i < index; i++) {
-            current = current.next;
-        }
-        current.next = current.next.next;
-        result = current;
+    public E delete() {
+        Node<E> temp = this.first;
+        first = first.next;
         size--;
-        return result.date;
+        return temp.date;
     }
 
     public E get(int index) {
