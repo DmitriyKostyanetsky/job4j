@@ -47,25 +47,13 @@ public class Bishop extends Figure {
         int numberOfCell = Math.abs(source.getY() - dest.getY());
         int currentGetX = source.getX();
         int currentGetY = source.getY();
-        int deltaXY = Integer.compare(source.getX() - dest.getX(), source.getY() - dest.getY());
+        int deltaX = Integer.compare(source.getX(), dest.getX());
+        int deltaY = Integer.compare(source.getY(), dest.getY());
 
         for (int i = 0; i != numberOfCell; i++) {
-            if (deltaXY == 1) {
-                coordinates[i] = new Cell(--currentGetX, ++currentGetY);
-                continue;
-            }
-            if (deltaXY == -1) {
-                coordinates[i] = new Cell(++currentGetX, --currentGetY);
-                continue;
-            }
-            if (deltaXY == 0) {
-                if (source.getX() < dest.getX()) {
-                    coordinates[i] = new Cell(++currentGetX, ++currentGetY);
-                }
-                if (source.getX() > dest.getX()) {
-                    coordinates[i] = new Cell(--currentGetX, --currentGetY);
-                }
-            }
+            currentGetX = currentGetX - deltaX;
+            currentGetY = currentGetY - deltaY;
+            coordinates[i] = new Cell(currentGetX, currentGetY);
         }
         return arrayWithoutZeros(coordinates);
     }
