@@ -9,8 +9,8 @@ public class DynamicList<E> implements Iterable<E> {
 
     private E[] container;
     private int position = 0;
+    private int iteratorPosition;
     private int modCount = 0;
-    private int expectedModCount = modCount;
 
     public DynamicList(E[] container) {
         this.container = container;
@@ -21,41 +21,41 @@ public class DynamicList<E> implements Iterable<E> {
     }
 
     public void add(E value) {
-        checkModificationException();
         if (position == container.length) {
             increaseArray();
-            modCount++;
         }
-        if (iterator().hasNext()) {
-            container[position++] = value;
-        }
-        expectedModCount++;
+        container[position++] = value;
+        modCount++;
     }
 
     public E get(int index) {
         return container[index];
     }
 
-    private void checkModificationException() {
-        if (modCount != expectedModCount)
-            throw new ConcurrentModificationException();
-    }
-
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
+            private int expectedModCount = modCount;
+
             @Override
             public boolean hasNext() {
-                checkModificationException();
-                return container.length > position;
+                return container.length > iteratorPosition;
             }
 
             @Override
             public E next() {
+                checkModificationException();
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return container[position++];
+                iteratorPosition++;
+                return container[iteratorPosition - 1];
+            }
+
+            private void checkModificationException() {
+                if (modCount != expectedModCount) {
+                    throw new ConcurrentModificationException();
+                }
             }
         };
     }

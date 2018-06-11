@@ -19,7 +19,7 @@ public class DynamicListTest {
         list.add(1);
     }
 
-    @Test(expected = ConcurrentModificationException.class)
+    @Test
     public void whenAddElementThenException() {
         assertThat(list.get(0), is(3));
         assertThat(list.get(1), is(1));
@@ -35,5 +35,11 @@ public class DynamicListTest {
     @Test
     public void whenGetElementThenTrue() {
         assertThat(list.get(1), is(1));
+    }
+
+    @Test
+    public void checkNext() {
+        assertThat(list.iterator().next(), is(3));
+        assertThat(list.iterator().next(), is(1));
     }
 }
