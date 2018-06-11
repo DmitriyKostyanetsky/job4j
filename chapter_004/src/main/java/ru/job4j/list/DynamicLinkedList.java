@@ -8,7 +8,7 @@ public class DynamicLinkedList<E> implements Iterable<E> {
 
     private int position = 0;
     private int modCount = 0;
-    private int expectedModCount = modCount;
+    private int iteratorPosition;
     private Node<E> first;
     private Node<E> last;
 
@@ -24,7 +24,7 @@ public class DynamicLinkedList<E> implements Iterable<E> {
             temp.previous = first;
         }
         position++;
-        expectedModCount++;
+        modCount++;
     }
 
     public E removeFirst() {
@@ -38,6 +38,7 @@ public class DynamicLinkedList<E> implements Iterable<E> {
             first.previous = null;
         }
         position--;
+        modCount++;
         return result;
     }
 
@@ -52,6 +53,7 @@ public class DynamicLinkedList<E> implements Iterable<E> {
             last = last.previous;
         }
         position--;
+        modCount++;
         return result;
     }
 
@@ -73,17 +75,14 @@ public class DynamicLinkedList<E> implements Iterable<E> {
         }
     }
 
-    private void checkModificationException() {
-        if (modCount != expectedModCount)
-            throw new ConcurrentModificationException();
-    }
-
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
+            private int expectedModCount = modCount;
+
             @Override
             public boolean hasNext() {
-                return modCount - 1 < position;
+                return position > iteratorPosition;
             }
 
             @Override
@@ -92,7 +91,14 @@ public class DynamicLinkedList<E> implements Iterable<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return get(modCount++);
+                iteratorPosition++;
+                return get(iteratorPosition - 1);
+            }
+
+            private void checkModificationException() {
+                if (modCount != expectedModCount) {
+                    throw new ConcurrentModificationException();
+                }
             }
         };
     }
