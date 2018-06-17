@@ -9,7 +9,7 @@ public class SimpleSetNode<E> implements Iterable<E> {
     private DynamicLinkedList<E> list = new DynamicLinkedList<>();
 
     private boolean checkEquals(E e) {
-        DynamicLinkedList.Node<E> temp = list.first;
+        DynamicLinkedList.Node<E> temp = list.getFirst();
         while (temp != null) {
             if (temp.date.equals(e)) {
                 return false;

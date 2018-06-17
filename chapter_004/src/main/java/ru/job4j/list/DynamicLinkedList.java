@@ -27,6 +27,10 @@ public class DynamicLinkedList<E> implements Iterable<E> {
         modCount++;
     }
 
+    public Node<E> getFirst() {
+        return first;
+    }
+
     public E removeFirst() {
         E result = first.date;
         if (position == 1) {
@@ -65,12 +69,12 @@ public class DynamicLinkedList<E> implements Iterable<E> {
         return result.date;
     }
 
-    private static class Node<E> {
-        E date;
-        Node<E> next;
+    public static class Node<E> {
+        public E date;
+        public Node<E> next;
         Node<E> previous;
 
-        Node(E date) {
+        public Node(E date) {
             this.date = date;
         }
     }
