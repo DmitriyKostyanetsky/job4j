@@ -6,21 +6,20 @@ import java.util.Iterator;
 
 public class SimpleSet<E> implements Iterable<E> {
 
-    private E[] container;
     private DynamicList<E> dynamicList;
 
     public SimpleSet(E[] container) {
-        dynamicList = new DynamicList<>(this.container = container);
+        dynamicList = new DynamicList<>(container);
     }
 
     public void add(E e) {
-        for (int i = 0; i < container.length; i++) {
-            if (container[i] == null) {
+        for (int i = 0; i < dynamicList.getContainer().length; i++) {
+            if (dynamicList.getContainer()[i] == null) {
                 dynamicList.add(e);
                 break;
             }
-            if (container[i].equals(e)) {
-                container[i] = e;
+            if (dynamicList.getContainer()[i].equals(e)) {
+                dynamicList.getContainer()[i] = e;
                 break;
             }
         }
