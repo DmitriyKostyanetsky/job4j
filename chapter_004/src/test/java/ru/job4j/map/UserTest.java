@@ -12,7 +12,7 @@ public class UserTest {
 
     private User user1;
     private User user2;
-    private Map<User, Object> map;
+    private Map<User, String> map;
 
     @Before
     public void setUp() {
@@ -23,8 +23,11 @@ public class UserTest {
 
     @Test
     public void whenPutEqualsObjectsThen() {
-        map.put(user1, user1);
-        map.put(user2, user2);
+        map.put(user1, "first");
+        map.put(user2, "second");
+        System.out.println(user1.hashCode());
+        System.out.println(user2.hashCode());
+        System.out.println(user1.equals(user2));
         System.out.println(map);
     }
 }
