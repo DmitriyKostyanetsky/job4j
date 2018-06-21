@@ -6,7 +6,6 @@ public class SimpleHashSet<E> {
 
     private E[] container;
     private int position = 0;
-    private E value;
 
     public SimpleHashSet(E[] container) {
         this.container = container;
@@ -15,24 +14,33 @@ public class SimpleHashSet<E> {
     private void checkArray() {
         if (position == container.length) {
             container = Arrays.copyOf(container, container.length + 10);
+            for (int i = 0; i < container.length; i++) {
+                if (container[i] != null) {
+                    int newIndex = Math.abs(container[i].hashCode() % container.length);
+                    if (container[newIndex] == null) {
+                        container[newIndex] = container[i];
+                        container[i] = null;
+                        continue;
+                    }
+                    if (container[newIndex] != null) {
+                        E temp = container[newIndex];
+                        container[newIndex] = container[i];
+                        container[i] = temp;
+                    }
+                }
+            }
         }
     }
 
-    private boolean checkEquals(E e) {
-        for (int i = 0; i < container.length; i++) {
-            if (container[i] != null && container[i].equals(e)) {
-                container[i] = e;
-                return false;
-            }
-        }
-        return true;
+    private boolean hasDuplicate(E e) {
+        int hashSum = Math.abs(e.hashCode() % container.length);
+        return container[hashSum] == null;
     }
 
     boolean add(E e) {
-        value = e;
-        int hashSum = Math.abs(hashCode() % container.length);
         checkArray();
-        if (checkEquals(e)) {
+        int hashSum = Math.abs(e.hashCode() % container.length);
+        if (hasDuplicate(e)) {
             container[hashSum] = e;
             position++;
             return true;
@@ -40,23 +48,14 @@ public class SimpleHashSet<E> {
         return false;
     }
 
-    @Override
-    public int hashCode() {
-        int result = 17;
-        result = 31 * result + value.hashCode();
-        return result;
-    }
-
     boolean contains(E e) {
-        value = e;
-        int hashSum = Math.abs(hashCode() % container.length);
-        return container[hashSum] == e;
+        int hashSum = Math.abs(e.hashCode() % container.length);
+        return container[hashSum].equals(e);
     }
 
     boolean remove(E e) {
-        value = e;
-        int hashSum = Math.abs(hashCode() % container.length);
-        if (container[hashSum] == e) {
+        int hashSum = Math.abs(e.hashCode() % container.length);
+        if (container[hashSum].equals(e)) {
             container[hashSum] = null;
             return true;
         }
