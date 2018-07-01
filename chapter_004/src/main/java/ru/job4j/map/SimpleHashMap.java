@@ -2,17 +2,17 @@ package ru.job4j.map;
 
 import java.util.*;
 
-public class SimpleHashMap<K, V> implements Iterable<V>{
+public class SimpleHashMap<K, V> implements Iterable<V> {
 
     private static final int CONTAINER_SIZE = 5;
     private HashEntry<K, V>[] container;
     private int position = 0;
-    private int iteratorPosition = 0;
     private int modCount = 0;
 
     @Override
     public Iterator<V> iterator() {
         return new Iterator<V>() {
+            private int iteratorPosition = 0;
             private int expectedModCount = modCount;
 
             @Override

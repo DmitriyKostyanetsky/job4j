@@ -3,12 +3,15 @@ package ru.job4j.map;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class SimpleHashMapTest {
 
     private SimpleHashMap<Integer, String> hashMap;
+    private Iterator<String> it;
 
     @Before
     public void setUp() {
@@ -18,6 +21,7 @@ public class SimpleHashMapTest {
         hashMap.insert(3, "third");
         hashMap.insert(2, "two");
         hashMap.insert(0, "zero");
+        it = hashMap.iterator();
     }
 
     @Test
@@ -46,9 +50,9 @@ public class SimpleHashMapTest {
 
     @Test
     public void checkIterator() {
-        assertThat(hashMap.iterator().next(), is("third"));
-        assertThat(hashMap.iterator().next(), is("zero"));
-        assertThat(hashMap.iterator().next(), is("one"));
-        assertThat(hashMap.iterator().next(), is("two"));
+        assertThat(it.next(), is("third"));
+        assertThat(it.next(), is("zero"));
+        assertThat(it.next(), is("one"));
+        assertThat(it.next(), is("two"));
     }
 }
