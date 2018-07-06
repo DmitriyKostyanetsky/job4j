@@ -4,7 +4,7 @@ import java.util.*;
 
 public class SimpleTreeNode<E extends Comparable<E>> implements SimpleTree<E> {
 
-    private E value;
+    private final E value;
     private Node<E> root;
     private Node<E> children;
     private int modCount = 0;
@@ -62,25 +62,36 @@ public class SimpleTreeNode<E extends Comparable<E>> implements SimpleTree<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new Iterator<E>() {
-            int expectedModCount = modCount;
-            Node<E> result = children;
+        return new TreeIterator();
+    }
 
-            @Override
-            public boolean hasNext() {
-                return children != null;
-            }
+    private class TreeIterator implements Iterator<E> {
+        int expectedModCount = modCount;
+        Queue<Node<E>> queue = new LinkedList<>();
 
-            @Override
-            public E next() {
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
-                if (modCount != expectedModCount) {
-                    throw new ConcurrentModificationException();
-                }
-                return result.getValue();
+        private TreeIterator() {
+            queue.offer(root);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !queue.isEmpty();
+        }
+
+
+        @Override
+        public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
             }
-        };
+            if (modCount != expectedModCount) {
+                throw new ConcurrentModificationException();
+            }
+            Node<E> temp = queue.poll();
+            for (Node<E> child : temp.leaves()) {
+                queue.offer(child);
+            }
+            return temp.getValue();
+        }
     }
 }
