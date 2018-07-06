@@ -1,11 +1,36 @@
 package ru.job4j.tree;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
     private Node<E> root;
     private int count = 0;
+
+    public void addWithoutRecurse(E e) {
+        if (root == null) {
+            root = new Node<>(e);
+        } else {
+            Node<E> temp = root;
+            Node<E> child;
+            while (true) {
+                child = temp;
+                if (temp.value.compareTo(e) >= 0) {
+                    temp = temp.left;
+                    if (temp == null) {
+                        child.left = new Node<>(e);
+                        break;
+                    }
+                }
+                if (temp.value.compareTo(e) < 0) {
+                    temp = temp.right;
+                    if (temp == null) {
+                        child.right = new Node<>(e);
+                        break;
+                    }
+                }
+            }
+        }
+    }
 
     public void add(E e) {
         if (root == null) {
@@ -36,89 +61,35 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new TreeIterator(root);
+        return new TreeIterator();
     }
 
     private class TreeIterator implements Iterator<E> {
-        private Node<E> next;
-        private Node<E> temp;
-        private boolean countRight = false;
-        private boolean over = false;
+        Queue<Node<E>> queue = new LinkedList<>();
+        Node<E> nextLeft = root;
+        Node<E> nextRight = root;
 
-        private TreeIterator(Node<E> root) {
-            next = root;
+        private TreeIterator() {
+            queue.offer(root);
+            while (nextLeft.left != null) {
+                nextLeft = nextLeft.left;
+                queue.offer(nextLeft);
+                if (nextLeft.right != null) {
+                    queue.offer(nextLeft.right);
+                }
+            }
+            while (nextRight.right != null) {
+                nextRight = nextRight.right;
+                queue.offer(nextRight);
+                if (nextRight.left != null) {
+                    queue.offer(nextRight.left);
+                }
+            }
         }
 
         @Override
         public boolean hasNext() {
-            return next != null;
-        }
-
-        /**
-         * Метод находит "родителя" самого левого узла
-         * @param node узел
-         * @return возвращает левый узел
-         */
-        private Node<E> findLeftmost(Node<E> node) {
-            if (!isTempOver()) {
-                return temp;
-            }
-            if (node.left == null) {
-                return node;
-            }
-            while(node.left.left != null) {
-                node = node.left;
-            }
-            return node;
-        }
-
-        /**
-         * Метод проверяет проверены ли все все элементы узла
-         * @return true если проверены, false если нет
-         */
-        private boolean isTempOver() {
-            if (temp != null) {
-                if (temp.left != null || temp.right != null) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        /**
-         * Метод находит "родителя" самого правого узла
-         * @param node узел
-         * @return возвращает правый узел
-         */
-        private Node<E> findRightmost(Node<E> node) {
-            if (!isTempOver()) {
-                return temp;
-            }
-            if (node.right == null) {
-                return node;
-            }
-            while(node.right.right != null) {
-                node = node.right;
-            }
-            return node;
-        }
-
-        /**
-         * Метод проверяет, что левый узел пройден и можно перейти к правому
-         */
-        private void checkLeftNodeOver() {
-            if (next.left.equals(temp)) {
-                countRight = true;
-            }
-        }
-
-        /**
-         * Метод проверяет, что правый узел пройден
-         */
-        private void checkRightNodeOver() {
-            if (next.right.equals(temp)) {
-                over = true;
-            }
+            return !queue.isEmpty();
         }
 
         @Override
@@ -126,30 +97,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            E result;
-            if (!countRight) {
-                temp = findLeftmost(next.left);
-            }
-            if (countRight) {
-                temp = findRightmost(next.right);
-            }
-            if (temp.left != null) {
-                result = temp.left.value;
-                temp.left = null;
-                return result;
-            }
-            if (temp.right != null) {
-                result = temp.right.value;
-                temp.right = null;
-                return result;
-            }
-            if (over) {
-                result = next.value;
-                next = null;
-                return result;
-            }
-            checkLeftNodeOver();
-            checkRightNodeOver();
+            Node<E> temp = queue.poll();
             return temp.value;
         }
     }

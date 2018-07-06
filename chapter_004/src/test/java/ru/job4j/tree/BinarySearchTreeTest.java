@@ -30,15 +30,29 @@ public class BinarySearchTreeTest {
 
     @Test(expected = NoSuchElementException.class)
     public void checkNext() {
-        assertThat(it.next(), is(1));
-        assertThat(it.next(), is(3));
-        assertThat(it.next(), is(2));
-        assertThat(it.next(), is(4));
+        assertThat(it.next(), is(6));
         assertThat(it.next(), is(5));
+        assertThat(it.next(), is(4));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(3));
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(8));
         assertThat(it.next(), is(7));
         assertThat(it.next(), is(9));
-        assertThat(it.next(), is(8));
         assertThat(it.next(), is(6));
-        assertThat(it.next(), is(6));
+    }
+
+    @Test
+    public void checkAdd() {
+        tree = new BinarySearchTree<>();
+        tree.addWithoutRecurse(6);
+        tree.addWithoutRecurse(5);
+        tree.addWithoutRecurse(8);
+        tree.addWithoutRecurse(4);
+        tree.addWithoutRecurse(2);
+        tree.addWithoutRecurse(3);
+        tree.addWithoutRecurse(9);
+        tree.addWithoutRecurse(1);
+        tree.addWithoutRecurse(7);
     }
 }
