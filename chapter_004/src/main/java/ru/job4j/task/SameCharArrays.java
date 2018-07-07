@@ -11,22 +11,17 @@ public class SameCharArrays {
     }
 
     public boolean isSameArrays() {
-        boolean coincidence = true;
-        sort(oneArr);
-        sort(twoArr);
-        for (int i = 0; i < oneArr.length; i++) {
-            for (int j = 0; j < twoArr.length; j++) {
-                if (oneArr[i] != twoArr[j]) {
-                    coincidence = false;
-                    break;
-                }
-                i++;
-            }
+        boolean coincidence = false;
+        String s1 = sort(oneArr);
+        String s2 = sort(twoArr);
+        if (s1.equals(s2)) {
+            coincidence = true;
         }
         return coincidence;
     }
 
-    private void sort(char[] arr) {
+    private String sort(char[] arr) {
+        String result = "";
         for (int i = 0; i + 1 < arr.length; i++) {
             if (arr[i] > arr[i + 1]) {
                 char temp = arr[i + 1];
@@ -35,5 +30,9 @@ public class SameCharArrays {
                 i = 0;
             }
         }
+        for (Character c : arr) {
+            result += c.toString();
+        }
+        return result;
     }
 }
