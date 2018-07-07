@@ -11,17 +11,19 @@ public class SameCharArrays {
     }
 
     public boolean isSameArrays() {
-        boolean result = false;
-        for (int i = 0; i < oneArr.length;) {
+        boolean coincidence = false;
+        for (int i = 0; i < oneArr.length; i++) {
             for (int j = 0; j < twoArr.length; j++) {
                 if (oneArr[i] == twoArr[j]) {
-                    result = true;
-                } else {
+                    coincidence = true;
+                    twoArr[j] = 0;
+                    break;
+                }
+                if (j == twoArr.length - 1) {
                     return false;
                 }
-                i++;
             }
         }
-        return result;
+        return coincidence;
     }
 }
