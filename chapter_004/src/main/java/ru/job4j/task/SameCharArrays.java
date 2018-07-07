@@ -11,15 +11,14 @@ public class SameCharArrays {
     }
 
     public boolean isSameArrays() {
-        boolean coincidence = false;
+        boolean coincidence = true;
         sort(oneArr);
         sort(twoArr);
         for (int i = 0; i < oneArr.length; i++) {
             for (int j = 0; j < twoArr.length; j++) {
-                if (oneArr[i] == twoArr[j]) {
-                    coincidence = true;
-                } else {
-                    return false;
+                if (oneArr[i] != twoArr[j]) {
+                    coincidence = false;
+                    break;
                 }
                 i++;
             }
