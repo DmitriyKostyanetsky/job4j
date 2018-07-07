@@ -12,18 +12,29 @@ public class SameCharArrays {
 
     public boolean isSameArrays() {
         boolean coincidence = false;
+        sort(oneArr);
+        sort(twoArr);
         for (int i = 0; i < oneArr.length; i++) {
             for (int j = 0; j < twoArr.length; j++) {
                 if (oneArr[i] == twoArr[j]) {
                     coincidence = true;
-                    twoArr[j] = 0;
-                    break;
-                }
-                if (j == twoArr.length - 1) {
+                } else {
                     return false;
                 }
+                i++;
             }
         }
         return coincidence;
+    }
+
+    private void sort(char[] arr) {
+        for (int i = 0; i + 1 < arr.length; i++) {
+            if (arr[i] > arr[i + 1]) {
+                char temp = arr[i + 1];
+                arr[i + 1] = arr[i];
+                arr[i] = temp;
+                i = 0;
+            }
+        }
     }
 }
