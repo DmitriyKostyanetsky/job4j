@@ -21,5 +21,8 @@ public class PingPong extends Application{
         primaryStage.setTitle(JOB4J);
         primaryStage.setResizable(false);
         primaryStage.show();
+        primaryStage.setOnCloseRequest(
+                event -> System.exit(1)
+        );
     }
 }
