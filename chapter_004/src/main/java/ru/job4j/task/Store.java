@@ -3,6 +3,7 @@ package ru.job4j.task;
 import java.util.List;
 
 public class Store {
+    private static User temp;
     private Info info = new Info();
 
     public Info diff(List<User> current, List<User> next) {
@@ -25,17 +26,13 @@ public class Store {
         }
 
         private Info deleted(List<User> current, List<User> next) {
-            for (int i = 0; i < current.size(); i++) {
-                for (int j = 0; j < next.size(); j++) {
-                    if (current.get(i).equals(next.get(j))) {
-                        if (!current.get(i).name.equals(next.get(j).name)) {
-                            chCount++;
-                        }
-                        break;
-                    }
-                    if (!current.get(i).equals(next.get(j)) && j + 1 == next.size()) {
-                        remCount++;
-                    }
+            for (User value : current) {
+                if (!next.contains(value)) {
+                    remCount++;
+                    continue;
+                }
+                if (!value.name.equals(temp.name)) {
+                    chCount++;
                 }
             }
             addCount = Math.abs(current.size() - next.size()) + remCount;
@@ -61,6 +58,7 @@ public class Store {
                 return false;
             }
             User user = (User) obj;
+            temp = user;
             return Integer.compare(id, user.id) == 0;
         }
     }
