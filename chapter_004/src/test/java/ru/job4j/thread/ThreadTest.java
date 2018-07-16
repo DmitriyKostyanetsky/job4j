@@ -2,6 +2,7 @@ package ru.job4j.thread;
 
 import org.junit.Test;
 import ru.job4j.treads.condition.Task;
+import ru.job4j.treads.condition.Visibility;
 
 public class ThreadTest {
 
@@ -14,5 +15,14 @@ public class ThreadTest {
         thread2.start();
         thread1.join();
         thread2.join();
+    }
+
+    @Test
+    public void testThread2() throws InterruptedException {
+        Visibility vis = new Visibility();
+        Thread thread1 = new Thread(vis);
+        thread1.start();
+        vis.aVoid();
+        thread1.join();
     }
 }
