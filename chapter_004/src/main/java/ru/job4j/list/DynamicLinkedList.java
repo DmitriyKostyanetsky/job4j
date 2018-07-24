@@ -1,9 +1,12 @@
 package ru.job4j.list;
 
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+@ThreadSafe
 public class DynamicLinkedList<E> implements Iterable<E> {
 
     private int position = 0;
@@ -12,7 +15,7 @@ public class DynamicLinkedList<E> implements Iterable<E> {
     private Node<E> first;
     private Node<E> last;
 
-    public void add(E value) {
+    public synchronized void add(E value) {
         Node<E> newLink = new Node<>(value);
         Node<E> temp = first;
         first = newLink;
@@ -31,7 +34,7 @@ public class DynamicLinkedList<E> implements Iterable<E> {
         return first;
     }
 
-    public E removeFirst() {
+    public synchronized E removeFirst() {
         E result = first.date;
         if (position == 1) {
             first = null;
@@ -46,7 +49,7 @@ public class DynamicLinkedList<E> implements Iterable<E> {
         return result;
     }
 
-    public E removeLast() {
+    public synchronized E removeLast() {
         E result = last.date;
         if (position == 1) {
             first = null;

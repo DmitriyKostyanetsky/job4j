@@ -1,10 +1,13 @@
 package ru.job4j.list;
 
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+@ThreadSafe
 public class DynamicList<E> implements Iterable<E> {
 
     private E[] container;
@@ -20,7 +23,7 @@ public class DynamicList<E> implements Iterable<E> {
         container = Arrays.copyOf(container, container.length + 1);
     }
 
-    public void add(E value) {
+    public synchronized void add(E value) {
         if (position == container.length) {
             increaseArray();
         }
@@ -28,12 +31,21 @@ public class DynamicList<E> implements Iterable<E> {
         modCount++;
     }
 
-    public E[] getContainer() {
-        return container;
+    public synchronized boolean remove(int index) {
+        boolean result = false;
+        if (container[index] != null) {
+            container[index] = null;
+            return true;
+        }
+        return false;
     }
 
     public E get(int index) {
         return container[index];
+    }
+
+    public E[] getContainer() {
+        return container;
     }
 
     @Override
