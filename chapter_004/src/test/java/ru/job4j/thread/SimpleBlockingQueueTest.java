@@ -1,9 +1,9 @@
 package ru.job4j.thread;
 
 import org.junit.Test;
-import ru.job4j.threads.Consumer;
-import ru.job4j.threads.Producer;
-import ru.job4j.threads.SimpleBlockingQueue;
+import ru.job4j.threads1.Consumer;
+import ru.job4j.threads1.Producer;
+import ru.job4j.threads1.SimpleBlockingQueue;
 
 public class SimpleBlockingQueueTest {
 

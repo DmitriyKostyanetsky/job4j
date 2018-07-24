@@ -1,4 +1,4 @@
-package ru.job4j.threads;
+package ru.job4j.threads1;
 
 public class Consumer extends Thread {
     private SimpleBlockingQueue<Integer> queue;
