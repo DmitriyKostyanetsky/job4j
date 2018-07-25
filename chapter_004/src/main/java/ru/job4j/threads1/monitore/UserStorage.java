@@ -1,4 +1,4 @@
-package ru.job4j.treads.monitore;
+package ru.job4j.threads1.monitore;
 
 import net.jcip.annotations.ThreadSafe;
 
@@ -10,12 +10,12 @@ public class UserStorage {
 
     private List<User> list = new ArrayList<>();
 
-    public boolean add(User user) {
+    public synchronized boolean add(User user) {
         list.add(user);
         return true;
     }
 
-    public boolean update(User user) {
+    public synchronized boolean update(User user) {
         for (User value : list) {
             if (value.equals(user)) {
                 value = user;
@@ -25,7 +25,7 @@ public class UserStorage {
         return false;
     }
 
-    public boolean delete (User user) {
+    public synchronized boolean delete (User user) {
         list.remove(user);
         return true;
     }
