@@ -30,7 +30,7 @@ public class DynamicLinkedList<E> implements Iterable<E> {
         modCount++;
     }
 
-    public Node<E> getFirst() {
+    public synchronized Node<E> getFirst() {
         return first;
     }
 
@@ -64,7 +64,7 @@ public class DynamicLinkedList<E> implements Iterable<E> {
         return result;
     }
 
-    public E get(int index) {
+    public synchronized E get(int index) {
         Node<E> result = this.first;
         for (int i = 0; i < index; i++) {
             result = result.next;
