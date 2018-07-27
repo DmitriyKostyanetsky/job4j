@@ -10,13 +10,11 @@ public class ThreadPoolTest {
     public void testThreadPool() throws InterruptedException {
         int size = Runtime.getRuntime().availableProcessors();
         ThreadPool pool = new ThreadPool(size);
-        for (int i = 0; i < pool.getThreads().size(); i++) {
-            pool.getThreads().get(i).start();
-        }
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 5; i++) {
             Task task = new Task("Task " + i);
             System.out.println("Added new : " + task.getName());
             pool.work(task);
         }
+        pool.shutdown();
     }
 }
