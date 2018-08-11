@@ -15,17 +15,19 @@ public class Job extends Thread {
     public void run() {
         Runnable job;
         while (!isLock) {
-            synchronized (tasks) {
-                try {
-                    System.out.println("wait " + Thread.currentThread().getName());
-                    tasks.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                job = tasks.poll();
-                if (job != null) {
+            try {
+                synchronized (tasks) {
+                    while (this.tasks.size() == 0) {
+                        tasks.wait();
+                    }
+                    if (this.tasks.size() != 0) {
+                        tasks.notifyAll();
+                    }
+                    job = tasks.poll();
                     job.run();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

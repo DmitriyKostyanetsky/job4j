@@ -8,8 +8,7 @@ public class ThreadPoolTest {
 
     @Test
     public void testThreadPool() throws InterruptedException {
-        int size = Runtime.getRuntime().availableProcessors();
-        ThreadPool pool = new ThreadPool(size);
+        ThreadPool pool = new ThreadPool();
         for (int i = 0; i <= 5; i++) {
             Task task = new Task("Task " + i);
             System.out.println("Added new : " + task.getName());

@@ -11,12 +11,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class ThreadPool {
     private final List<Job> threads = new LinkedList<>();
     private final Queue<Runnable> tasks = new LinkedBlockingQueue<>();
+    private int limit = Runtime.getRuntime().availableProcessors();
 
-    public ThreadPool(int size) {
-        for (int i = 0; i < size; i++) {
+    public ThreadPool() {
+        for (int i = 0; i < limit; i++) {
             threads.add(new Job(tasks));
         }
-        for (Thread thread : threads) {
+        for (Job thread : threads) {
             thread.start();
         }
     }
@@ -27,7 +28,6 @@ public class ThreadPool {
      */
     public synchronized void work(Runnable job) {
         synchronized (tasks) {
-            System.out.println("work " + Thread.currentThread().getName());
             tasks.add(job);
             tasks.notifyAll();
         }
